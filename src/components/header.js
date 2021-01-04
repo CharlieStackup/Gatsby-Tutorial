@@ -1,6 +1,46 @@
-import { Link } from "gatsby"
+import { Link, StaticQuery } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+
+const TitleAndDescription = ({ data }) => {
+  const { description, title } = data.site.siteMetadata;
+
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      fontFamily: 'avenir'
+    }}>
+      <h2 style={{ marginbottom: 0 }}>{title}</h2>
+      <p style={{
+        marginTop: 0,
+        opacity: 0.5
+      }}>{description}
+      </p>
+    </div>
+  )
+}
+
+export const Siteheader = () => {
+  return (
+    <StaticQuery
+      query={graphql`
+        query {
+          site {
+            siteMetadata {
+              title
+              description
+              author
+            }
+          }
+        }
+    `}
+      render={data => <TitleAndDescription data={data} />
+      }
+    />
+  )
+}
 
 const Header = ({ siteTitle }) => (
   <header
